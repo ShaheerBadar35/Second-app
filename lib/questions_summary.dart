@@ -1,0 +1,44 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
+
+class QuestionsSummary extends StatelessWidget {
+  const QuestionsSummary(this.summaryData, {super.key});
+
+  final List<Map<String, Object>> summaryData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: summaryData.map(
+        (data) {
+          var data2 = data['question'] as String;
+          return Row(
+            children: [
+              Text(((data['question_index'] as int) + 1).toString()),
+              Expanded(
+                child: Column(
+                  children: [
+                    widget(
+                      children: [
+                        Text(data2),
+                        const Text("Question"),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(data['user_answer'] as String),
+                        Text(data['correct_answer'] as String),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ).toList(),
+    );
+  }
+
+  widget({required List<Widget> children}) {}
+}
